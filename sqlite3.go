@@ -1972,7 +1972,7 @@ func (s *SQLiteStmt) bind(args []namedValue) error {
 				if s.c.loc != nil{
 					v=v.In(s.c.loc)
 				}
-				b := []byte(v.Format(sQLiteTimestampFormats[4]))
+				b := []byte(v.Format(SQLiteTimestampFormats[4]))
 				rv = C._sqlite3_bind_text(s.s, n, (*C.char)(unsafe.Pointer(&b[0])), C.int(len(b)))
 			}
 			if rv != C.SQLITE_OK {
