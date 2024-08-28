@@ -1969,7 +1969,10 @@ func (s *SQLiteStmt) bind(args []namedValue) error {
 					rv = C._sqlite3_bind_blob(s.s, n, unsafe.Pointer(&v[0]), C.int(ln))
 				}
 			case time.Time:
-				b := []byte(v.Format(SQLiteTimestampFormats[0]))
+				if s.c.loc != nil{
+					v=v.In(s.c.loc)
+				}
+				b := []byte(v.Format(sQLiteTimestampFormats[4]))
 				rv = C._sqlite3_bind_text(s.s, n, (*C.char)(unsafe.Pointer(&b[0])), C.int(len(b)))
 			}
 			if rv != C.SQLITE_OK {
